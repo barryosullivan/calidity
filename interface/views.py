@@ -1,3 +1,10 @@
-from django.shortcuts import render
+"""
+***User Interface Views***
+"""
+from django.shortcuts import render, HttpResponse
 
-# Create your views here.
+#Index Page for the website
+def index( request ):
+    context = {
+    }
+    return render( request, 'interface/index.html', context )
