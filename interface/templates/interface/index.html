@@ -1,1 +1,33 @@
-<h1>Hello World</h1>
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		{% load staticfiles %}
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta name="description" content="">
+		<meta name="author" content="Barry O' Sullivan">
+		<meta http-equiv="refresh" content="10">
+		<title>Calidity | Final Year Project 2017</title>
+	</head>
+	<body>
+	<h1>Calidity</h1>
+	<section>
+		<h1>Outside</h1>
+		<p>Outside the temperature for {{weather_location}} is {{weather_tempc}}C</p>
+		<p>There is a {{chance_rain}}% chance of rain and the wind is currently blowing at {{windkph}} km/h</p>
+		<p>There is an expected High of {{high}}C and an expected Low of {{low}}C</p>
+		<p>Humidity is {{humidity}}</p>
+	</section>
+	<section>
+		<h1>Inside</h1>
+		<p>Inside the temperature is {{weather_tempc}}C</p>
+	</section>
+	<button type="button">Optimise Cost!</button> 
+	<button type="button">Optimise Comfort!</button> 
+	<p>Using intelligent machine learning on the current and previous weather data the heating system is now {{status}}</p>
+	<script>
+	
+	</script>
+	</body>
+</html>
