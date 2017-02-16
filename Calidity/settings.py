@@ -1,16 +1,6 @@
 """
 Django settings for Calidity.
 """
-import os
-
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-
-TEMPLATE_DIRS = (
-    os.path.join(BASE_DIR, 'templates'),
-)
-
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/1.8/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = ')_lr+u9cpp0p1_y)jqr3(zdmgrwejo875!9(6@l!05ye30bzv&'
@@ -20,9 +10,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
-
 # Application definition
-
 INSTALLED_APPS = (
     'django.contrib.admin',
     'django.contrib.auth',
@@ -30,7 +18,8 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-	'interface',
+    'django.contrib.sites',
+    'interface',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -64,10 +53,7 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'Calidity.wsgi.application'
 
-
 # Database
-# https://docs.djangoproject.com/en/1.8/ref/settings/#databases
-
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
@@ -76,13 +62,13 @@ DATABASES = {
         'PASSWORD': 'ahhuasee',
         'HOST': 'cs1.ucc.ie',
         'PORT': '',
+		'OPTIONS' : {
+            'sql_mode': 'traditional',
+        }
     }
 }
 
-
 # Internationalization
-# https://docs.djangoproject.com/en/1.8/topics/i18n/
-
 LANGUAGE_CODE = 'en-us'
 
 TIME_ZONE = 'UTC'
@@ -95,6 +81,4 @@ USE_TZ = True
 
 
 # Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/1.8/howto/static-files/
-
 STATIC_URL = '/static/'

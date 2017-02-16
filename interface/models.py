@@ -3,19 +3,21 @@
 """
 from django.db import models
 
-class external_temperatures(models.Model):
-    current_hour = models.IntegerField(primary_key=True)
-    current_c = models.IntegerField()
+#Stores All the weather data
+class Temperature(models.Model):
+    time = models.DateTimeField(auto_now_add=True, primary_key=True)
+    external_c = models.IntegerField()
+    internal_c = models.IntegerField()
+    wind_kph = models.IntegerField()
+    humidity = models.IntegerField()
+    chance_of_precipitation = models.IntegerField()
     expected_high = models.IntegerField()
     expected_low = models.IntegerField()
-    chance_of_precipitation = models.IntegerField()
-    wind_chill = models.IntegerField()
 
-class internal_temperatures(models.Model):
-    current_hour = models.IntegerField(primary_key=True)
-    current_c = models.IntegerField()
-
-#class fuel_tank(models.Model):
-    current_hour = models.IntegerField(primary_key=True)
-    fuel_remaining = models.IntegerField()
-    rate_of_burn = models.IntegerField()
+#Store Global comfort settings
+class User_Setting(models.Model):
+	boiler_high = models.IntegerField()
+	boiler_low = models.IntegerField()
+	margin_of_error = models.IntegerField()
+	ideal_temp = models.IntegerField()
+	updated = models.DateTimeField(auto_now=True)
