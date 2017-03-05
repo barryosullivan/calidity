@@ -3,21 +3,31 @@
 """
 from django.db import models
 
-#Stores All the weather data
+#stores all the recorded temps
 class Temperature(models.Model):
     time = models.DateTimeField(auto_now_add=True, primary_key=True)
-    external_c = models.IntegerField()
-    internal_c = models.IntegerField()
-    wind_kph = models.IntegerField()
-    humidity = models.IntegerField()
-    chance_of_precipitation = models.IntegerField()
-    expected_high = models.IntegerField()
-    expected_low = models.IntegerField()
+    external_c = models.FloatField()
+    internal_c = models.FloatField()
 
-#Store Global comfort settings
+#stores all the weather data
+class Weather(models.Model):
+    time = models.DateTimeField(auto_now_add=True, primary_key=True)
+    conditions = models.CharField(max_length = 20)
+    humidity = models.FloatField()
+    wind_kph = models.IntegerField()
+    chance_rain = models.IntegerField()
+    high = models.FloatField()
+    low = models.FloatField()
+    snow = models.FloatField()
+
+#Stores user settings
 class User_Setting(models.Model):
-	boiler_high = models.IntegerField()
-	boiler_low = models.IntegerField()
 	margin_of_error = models.IntegerField()
 	ideal_temp = models.IntegerField()
-	updated = models.DateTimeField(auto_now=True)
+
+#Stores data about the heating system
+#In this instance - a boiler
+class Heating_System(models.Model):
+    status = models.BooleanField(default=False)
+    fuel_remaining = models.FloatField()
+    burn_rate = models.FloatField()
