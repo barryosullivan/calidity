@@ -24,6 +24,7 @@ class Weather(models.Model):
 class User_Setting(models.Model):
 	margin_of_error = models.IntegerField()
 	ideal_temp = models.IntegerField()
+#Override option
 
 #Stores data about the heating system
 #In this instance - a boiler
@@ -31,3 +32,6 @@ class Heating_System(models.Model):
     status = models.BooleanField(default=False)
     fuel_remaining = models.FloatField()
     burn_rate = models.FloatField()
+
+class Building(models.Model):
+    windows = models.BooleanField(default=False)

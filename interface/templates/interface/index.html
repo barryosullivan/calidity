@@ -1,163 +1,111 @@
-<!DOCTYPE html>
-<html lang="en">
-	<head>
-		{% load staticfiles %}
-		<meta charset="utf-8">
-		<meta http-equiv="X-UA-Compatible" content="IE=edge">
-		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<meta name="description" content="">
-		<meta name="author" content="Barry O' Sullivan">
-		<title>Calidity | Final Year Project 2017</title>
-		<!-- Bootstrap Core CSS -->
-		<link href="{% static 'interface/css/bootstrap.min.css' %}" rel="stylesheet">
-		<!-- Custom CSS -->
-		<link href="{% static 'interface/css/sb-admin.css' %}" rel="stylesheet">
-		<!-- Morris Charts CSS -->
-		<link href="{% static 'interface/css/plugins/morris.css' %}" rel="stylesheet">
-		<!-- Custom Fonts -->
-		<link href="{% static 'interface/font-awesome/css/font-awesome.min.css' %}" rel="stylesheet">
-		<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-		<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-		<!--[if lt IE 9]>
-			<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-			<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-		<![endif]-->
-	</head>
-	<body>
-	<div id="wrapper">
-        <!-- Navigation -->
-        <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-            <!-- Brand and toggle get grouped for better mobile display -->
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" href=""><i class="fa fa-cube fa-lg" aria-hidden="true"></i> Calidity - Control Panel</a>
-            </div>
-            <!-- Top Menu Items -->
-            <ul class="nav navbar-right top-nav">
-                <li><a><i class="fa fa-user aria-hidden="true"></i> Barry O' Sullivan FYP - 2017</a></li>
-            </ul>
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+<!-- Page Heading -->
+<div class="row">
+	<div class="col-lg-12">
+		<h1 class="page-header">
+			<i class="fa fa-cube fa-2x" aria-hidden="true"></i> Calidity <small>Overview</small>
+		</h1>
+		<div class="well">
+			<p>
+				The majority of home heating systems only react after a change in a system rather than proactively anticipating a change in a system (Eg: Boolean Thermostat). The goal here is to implement a smart 
+			home heating system that will record and monitor both the state and rate of change of internal and 
+			external temperatures &amp; anticipate fluctuations in a closed system. We want to optimize cost and 
+			comfort. Emphasis will be on the monitoring and control software
+			</p>
+		</div>
+	</div>
+</div>
+<!-- /.row -->
+
+<div class="row">
+	<div class="col-lg-4">
+		<div class="panel panel-green">
+			<div class="panel-heading">
+				<h3 class="panel-title"><i class="fa fa-home"></i> System Data (Now)</h3>
+			</div>
 			
-			
-            <!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
-            <div class="collapse navbar-collapse navbar-ex1-collapse">
-                <ul class="nav navbar-nav side-nav">
-                    <li class="active">
-                        <a href=""><i class="fa fa-fw fa-dashboard"></i> Dashboard</a>
-                    </li>
-                    <li>
-                        <a href="/Settings"><i class="fa fa-cog" aria-hidden="true"></i></i> Settings</a>
-                    </li>
-					<li>
-						<a href="/admin"><i class="fa fa-database" aria-hidden="true"></i>  DB Management </a>
+			<div class="panel-body">
+				<ul>
+					<li>Boiler Status: {% if True == heating_system.status %}
+																				On 
+																			{% else %} 
+																				Off 
+																		{% endif %}
 					</li>
-                    <li>
-						<a href="#"><i class="fa fa-bar-chart" aria-hidden="true"></i>  Charts </a>
-					</li>
-                </ul>
-            </div>
-            <!-- /.navbar-collapse -->
-        </nav>
-
-        <div id="page-wrapper">
-
-            <div class="container-fluid">
-
-                <!-- Page Heading -->
-                <div class="row">
-                    <div class="col-lg-12">
-                        <h1 class="page-header">
-                            <i class="fa fa-cube fa-2x" aria-hidden="true"></i> Calidity <small>Overview</small>
-                        </h1>
-                        <ol class="breadcrumb">
-                            <li class="active">
-                                <i class="fa fa-dashboard"></i> Dashboard
-                            </li>
-                        </ol>
-                    </div>
-                </div>
-                <!-- /.row -->
-				
-				<div class="row">
-					<div class="col-lg-12">
-							<div class="panel panel-default">
-								<div class="panel-heading">
-									<h3 class="panel-title"><i class="fa fa-refresh fa-spin fa-fw"></i> Current Data</h3>
-								</div>
-								
-								<div class="panel-body">
-									
-									<div class="text-right">
-										<a href="#">View Details <i class="fa fa-arrow-circle-right"></i></a>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-                <!-- /.row -->
-
-				<!-- row -->
-                <div class="row">
-                    <div class="col-lg-12">
-                        <div class="panel panel-default">
-                            <div class="panel-heading">
-                                <h3 class="panel-title"><i class="fa fa-area-chart" aria-hidden="true"></i> Temperature Fluctuations Last 24 Hrs</h3>
-                            </div>
-                            <div class="panel-body">
-                                <div id="morris-area-chart"></div>
-								<div class="text-right">
-										<a href="#">View Details <i class="fa fa-arrow-circle-right"></i></a>
-								</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- /.row -->
-
-            </div>
-            <!-- /.container-fluid -->
-
-        </div>
-        <!-- /#page-wrapper -->
-
-    </div>
-    <!-- /#wrapper -->
-
-	<!-- jQuery -->
-    <script src="{% static 'interface/js/jquery.js' %}"></script>
-
-    <!-- Bootstrap Core JavaScript -->
-	<script src="{% static 'interface/js/bootstrap.min.js' %}"></script>
-
-    <!-- Morris Charts JavaScript -->
-	<script src="{% static 'interface/js/plugins/morris/raphael.min.js' %}"></script>
-	<script src="{% static 'interface/js/plugins/morris/morris.min.js' %}"></script>
+					<li>Fuel Remaining: {{heating_system.fuel_remaining}} &#8467;</li>
+					<li>Burn Rate: {{heating_system.burn_rate}} &#8467;/hr</li>
+					<li>External Temp: {{current_temp.external_c}} &#8451;</li>
+					<li>Internal Temp: {{current_temp.internal_c}} &#8451;</li>
+				</ul>
+				<div class="text-right">
+					<a href="#">View Details <i class="fa fa-arrow-circle-right"></i></a>
+				</div>
+			</div>
+		</div>
+	</div>
 	
-	<script type="text/javascript">
-        Morris.Area({
-            element: 'morris-area-chart',
-            data: [
-                {% for temp in temperatures %}
-                    { period: '{{ temp.time }}', internal_c:  '{{ temp.internal_c }}', external_c: '{{temp.external_c}}' },
-                {% endfor %}
-            ],
-			xkey: 'period',
-			ykeys: ['internal_c', 'external_c'],
-			labels: ['Internal Degrees C', 'External Degrees C'],
-			parseTime: false,
-			behaveLikeLine: true,
-			goals: ['{{user_preference.ideal_temp}}'],
-			goalLineColors: ['red'],
-			goalStrokeWidth: 2,
-			pointSize: 1,
-			hideHover: 'auto',
-			resize: true,
-        });
-    </script>
-</body>
+	
+	<div class="col-lg-4">
+		<div class="panel panel-yellow">
+			<div class="panel-heading">
+				<h3 class="panel-title"><i class="fa fa-cloud"></i> Weather Data (Now)</h3>
+			</div>
+			
+			<div class="panel-body">
+				<ul>
+					<li>Current Weather: {{weather.conditions}}</li>
+					<li>Humidity: {{weather.humidity}} &#37;</li>
+					<li>Wind: {{weather.wind_kph}} km/h</li>
+					<li>Chance Of Rain: {{weather.chance_rain}} &#37;</li>
+					<li>Low {{weather.low}} &#8451;  vs  High {{weather.high}} &#8451;</li>
+				</ul>
+				<div class="text-right">
+					<a href="#">View Details <i class="fa fa-arrow-circle-right"></i></a>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<div class="col-lg-4">
+		<div class="panel panel-red">
+			<div class="panel-heading">
+				<h3 class="panel-title"><i class="fa fa-exclamation-triangle"></i> Alerts</h3>
+			</div>
+			
+			<div class="panel-body">
+				<ul>
+					<li>Boiler Hours Remaining: {{hours_remaining}} </li>
+					<li>Open Windows: {{open_windows}}</li>
+					<li>Snow Expected: {{snow_expected}}</li>
+					<li>Ice Expected: {{ice_expected}}</li>
+					<li>Heatwave Expected: {{heatwave_expected}}</li>
+				</ul>
+				<div class="text-right">
+					<a href="#">View Details <i class="fa fa-arrow-circle-right"></i></a>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- /.row -->
 
-</html>
+<!-- row -->
+<div class="row">
+	<div class="col-lg-12">
+		<div class="panel panel-primary">
+			<div class="panel-heading">
+				<h3 class="panel-title"><i class="fa fa-area-chart" aria-hidden="true"></i> Temperature Fluctuations Last 24 Hrs</h3>
+			</div>
+			<div class="panel-body">
+				<div id="morris-area-chart"></div>
+				<div class="text-right">
+						<a href="#">View Details <i class="fa fa-arrow-circle-right"></i></a>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- /.row -->
+{% endblock %}
