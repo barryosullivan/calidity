@@ -3,6 +3,13 @@
 """
 from django.db import models
 
+ECONOMICAL = "ECONOMICAL"
+COMFORT = "COMFORT"
+
+heating_choices = (
+    (ECONOMICAL, "Economical"),
+    (COMFORT, "Comfort"),
+)
 #stores all the recorded temps
 class Temperature(models.Model):
     time = models.DateTimeField(auto_now_add=True, primary_key=True)
@@ -22,9 +29,9 @@ class Weather(models.Model):
 
 #Stores user settings
 class User_Setting(models.Model):
-	margin_of_error = models.IntegerField()
-	ideal_temp = models.IntegerField()
-#Override option
+    setting = models.CharField(max_length = 10, choices = heating_choices, default="COMFORT")
+    ideal_temp = models.IntegerField(default=19)
+    system_override = models.BooleanField(default=False)
 
 #Stores data about the heating system
 #In this instance - a boiler
@@ -33,5 +40,13 @@ class Heating_System(models.Model):
     fuel_remaining = models.FloatField()
     burn_rate = models.FloatField()
 
+#data model for the building 
 class Building(models.Model):
     windows = models.BooleanField(default=False)
+	
+#data model storing system alerts
+class Alert(models.Model):
+    snow_expected = models.BooleanField(default=False)
+    ice_expected = models.BooleanField(default=False)
+    heatwave_expected = models.BooleanField(default=False)
+    open_windows = models.BooleanField(default=False)
