@@ -2,11 +2,18 @@ import os, time, glob, json, MySQLdb, schedule
 from urllib2 import urlopen
 from datetime import datetime
 
+#variables for raw temp data from sensor
 os.system('modprobe w1-gpio')                             
 os.system('modprobe w1-therm')                                                 
 base_dir = '/sys/bus/w1/devices/'                         
 device_folder = glob.glob(base_dir + '28*')[0]      
 device_file = device_folder + '/w1_slave'              
+
+#Database Variables
+HOST= "cs1.ucc.ie"
+USER = "bdos1"
+PASSWD = "ahhuasee"
+DB = "2017_bdos1"
 
 #Keys for wunderground website
 weather_station = '/IE/Cork'
@@ -42,11 +49,7 @@ def read_temp():
 		temp_string = lines[1][equals_pos+2:]
 		internal_c = float(temp_string) / 1000.0               
 	
-	db = MySQLdb.connect(host="cs1.ucc.ie",   
-					user="bdos1",         
-					passwd="ahhuasee",  
-					db="2017_bdos1")        
-
+	db = MySQLdb.connect(HOST, USER, PASSWD, DB)        
 	cur = db.cursor()
 	cur.execute("INSERT INTO interface_temperature (time, external_c, internal_c) VALUES (%s, %s, %s);", (time_now, external_c, internal_c))
 	db.commit()
@@ -68,11 +71,7 @@ def read_weather():
 	low = parsed_forecast['forecast']['simpleforecast']['forecastday'][0]['low']['celsius']
 	snow = parsed_forecast['forecast']['simpleforecast']['forecastday'][0]['snow_allday']['in']
 	
-	db = MySQLdb.connect(host="cs1.ucc.ie",   
-					user="bdos1",         
-					passwd="ahhuasee",  
-					db="2017_bdos1")        
-
+	db = MySQLdb.connect(HOST, USER, PASSWD, DB)         
 	cur = db.cursor()
 	cur.execute("INSERT INTO interface_weather (time, conditions, humidity, wind_kph, chance_rain, high, low, snow) VALUES (%s, %s, %s, %s, %s, %s, %s, %s);", (time_now, conditions, humidity, wind_kph, chance_rain, high, low, snow))
 	db.commit()
