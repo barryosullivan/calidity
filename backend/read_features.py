@@ -48,12 +48,17 @@ def read_temp():
 	if equals_pos != -1:
 		temp_string = lines[1][equals_pos+2:]
 		internal_c = float(temp_string) / 1000.0               
-	
-	db = MySQLdb.connect(HOST, USER, PASSWD, DB)        
-	cur = db.cursor()
-	cur.execute("INSERT INTO interface_temperature (time, external_c, internal_c) VALUES (%s, %s, %s);", (time_now, external_c, internal_c))
-	db.commit()
-	db.close()
+	try:
+	    db = MySQLdb.connect(HOST, USER, PASSWD, DB)        
+	    cur = db.cursor()
+	    cur.execute("INSERT INTO interface_temperature (time, external_c, internal_c) VALUES (%s, %s, %s);", (time_now, external_c, internal_c))
+	    db.commit()
+	    db.close()
+	except MySQLdb.Error, e:
+        try:
+            print "MySQL Error [%d]: %s" % (e.args[0], e.args[1])
+        except IndexError:
+            print "MySQL Error: %s" % str(e)
 
 #Fetches the latest weather forecast for the day
 def read_weather():
@@ -71,15 +76,21 @@ def read_weather():
 	low = parsed_forecast['forecast']['simpleforecast']['forecastday'][0]['low']['celsius']
 	snow = parsed_forecast['forecast']['simpleforecast']['forecastday'][0]['snow_allday']['in']
 	
-	db = MySQLdb.connect(HOST, USER, PASSWD, DB)         
-	cur = db.cursor()
-	cur.execute("INSERT INTO interface_weather (time, conditions, humidity, wind_kph, chance_rain, high, low, snow) VALUES (%s, %s, %s, %s, %s, %s, %s, %s);", (time_now, conditions, humidity, wind_kph, chance_rain, high, low, snow))
-	db.commit()
-	db.close()
+    try:
+	    db = MySQLdb.connect(HOST, USER, PASSWD, DB)         
+	    cur = db.cursor()
+	    cur.execute("INSERT INTO interface_weather (time, conditions, humidity, wind_kph, chance_rain, high, low, snow) VALUES (%s, %s, %s, %s, %s, %s, %s, %s);", (time_now, conditions, humidity, wind_kph, chance_rain, high, low, snow))
+	    db.commit()
+	    db.close()
+    except MySQLdb.Error, e:
+        try:
+            print "MySQL Error [%d]: %s" % (e.args[0], e.args[1])
+        except IndexError:
+            print "MySQL Error: %s" % str(e)
 
 #execute the program
 schedule.every(15).minutes.do(read_temp)
-schedule.every(6).hours.do(read_weather)
+schedule.every(1).hours.do(read_weather)
 	
 if __name__ == "__main__":
     while True:

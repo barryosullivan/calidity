@@ -35,15 +35,35 @@ def index( request ):
     return render( request, 'interface/index.html', context )
 
 def settings( request ):
-    user_preferences = User_Setting.objects.get()
+    user_setting = User_Setting.objects.get()
     heating_system = Heating_System.objects.get()
     building = Building.objects.get()
     context = {
-        'user_preference': user_preferences,
+        'user_setting': user_setting,
         'heating_system' : heating_system,
         'building' : building,
     }
     if request.method == 'POST':
+        override = request.POST['override']
+        status = request.POST['status']
+        windows = request.POST['windows']
+        fuel_remaining = request.POST['fuel_remaining']
+        burn_rate = request.POST['burn_rate']
+        ideal_temp = request.POST['ideal_temp']
+        setting = request.POST['setting']
+		
+        user_setting.setting = setting
+        user_setting.ideal_temp = ideal_temp
+        user_setting.system_override = override
+        user_setting.save()
+
+        building.windows = windows
+        building.save()
+
+        heating_system.status = status
+        heating_system.fuel_remaining = fuel_remaining
+        heating_system.burn_rate = burn_rate
+        heating_system.save()
         return render( request, 'interface/settings.html', context )
     else: 
         return render( request, 'interface/settings.html', context )

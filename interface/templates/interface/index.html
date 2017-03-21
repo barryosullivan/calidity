@@ -5,27 +5,34 @@
 <div class="row">
 	<div class="col-lg-12">
 		<h1 class="page-header">
-			<i class="fa fa-cube fa-2x" aria-hidden="true"></i> Calidity <small>Overview</small>
+			<i class="fa fa-cube fa-2x" aria-hidden="true"></i> Calidity <small>Dashboard</small>
 		</h1>
+		<ol class="breadcrumb">
+			<li class="active">
+				<i class="fa fa-dashboard"></i> Dashboard
+			</li>
+		</ol>
 		<div class="well">
 			<p>
-				The majority of home heating systems only react after a change in a system rather than proactively anticipating a change in a system (Eg: Boolean Thermostat). The goal here is to implement a smart 
-			home heating system that will record and monitor both the state and rate of change of internal and 
-			external temperatures &amp; anticipate fluctuations in a closed system. We want to optimize cost and 
-			comfort. Emphasis will be on the monitoring and control software
+				Simple home heating/cooling systems only react after a change has occurred (e.g. Boolean Thermostat, Timer) 
+				rather than proactively anticipating temperature fluctuations in a system. If these external fluctuations could be anticipated 
+				– the internal fluctuations in temperature wouldn’t be as severe (if any at all). This intelligent home heating/cooling system 
+				can be used to record and monitor both the state and rate of change of internal/external temperature &amp; weather data. 
+				The recorded data can then be used with simple machine learning to optimize cost and/or comfort. The simple &amp; concise interface allows
+				full control and monitoring over the entire system.
 			</p>
 		</div>
 	</div>
 </div>
-<!-- /.row -->
+<!-- /Page Heading -->
 
+<!-- System data -->
 <div class="row">
 	<div class="col-lg-4">
 		<div class="panel panel-green">
 			<div class="panel-heading">
-				<h3 class="panel-title"><i class="fa fa-home"></i> System Data (Now)</h3>
+				<h3 class="panel-title"><i class="fa fa-home"></i> System Data</h3>
 			</div>
-			
 			<div class="panel-body">
 				<ul>
 					<li>Boiler Status: {% if True == heating_system.status %}
@@ -40,7 +47,7 @@
 					<li>Internal Temp: {{current_temp.internal_c}} &#8451;</li>
 				</ul>
 				<div class="text-right">
-					<a href="#">View Details <i class="fa fa-arrow-circle-right"></i></a>
+					<a href="/Settings">View Details <i class="fa fa-arrow-circle-right"></i></a>
 				</div>
 			</div>
 		</div>
@@ -50,9 +57,8 @@
 	<div class="col-lg-4">
 		<div class="panel panel-yellow">
 			<div class="panel-heading">
-				<h3 class="panel-title"><i class="fa fa-cloud"></i> Weather Data (Now)</h3>
+				<h3 class="panel-title"><i class="fa fa-cloud"></i> Weather Data</h3>
 			</div>
-			
 			<div class="panel-body">
 				<ul>
 					<li>Current Weather: {{weather.conditions}}</li>
@@ -62,7 +68,7 @@
 					<li>Low {{weather.low}} &#8451;  vs  High {{weather.high}} &#8451;</li>
 				</ul>
 				<div class="text-right">
-					<a href="#">View Details <i class="fa fa-arrow-circle-right"></i></a>
+					<a href="/Settings">View Details <i class="fa fa-arrow-circle-right"></i></a>
 				</div>
 			</div>
 		</div>
@@ -73,7 +79,6 @@
 			<div class="panel-heading">
 				<h3 class="panel-title"><i class="fa fa-exclamation-triangle"></i> Alerts</h3>
 			</div>
-			
 			<div class="panel-body">
 				<ul>
 					<li>Boiler Hours Remaining: {{hours_remaining}} </li>
@@ -83,15 +88,15 @@
 					<li>Heatwave Expected: {{heatwave_expected}}</li>
 				</ul>
 				<div class="text-right">
-					<a href="#">View Details <i class="fa fa-arrow-circle-right"></i></a>
+					<a href="/Settings">View Details <i class="fa fa-arrow-circle-right"></i></a>
 				</div>
 			</div>
 		</div>
 	</div>
 </div>
-<!-- /.row -->
+<!-- System data -->
 
-<!-- row -->
+<!-- Morris chart showing the temp fluctuations-->
 <div class="row">
 	<div class="col-lg-12">
 		<div class="panel panel-primary">
@@ -101,11 +106,11 @@
 			<div class="panel-body">
 				<div id="morris-area-chart"></div>
 				<div class="text-right">
-						<a href="#">View Details <i class="fa fa-arrow-circle-right"></i></a>
+					<a href="/Settings">View Details <i class="fa fa-arrow-circle-right"></i></a>
 				</div>
 			</div>
 		</div>
 	</div>
 </div>
-<!-- /.row -->
+<!-- /morris chart -->
 {% endblock %}

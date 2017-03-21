@@ -9,9 +9,15 @@
 		</h1>
 		<ol class="breadcrumb">
 			<li class="active">
-				<i class="fa fa-dashboard"></i> Dashboard / User Preferences
+				<i class="fa fa-dashboard"></i> Settings
 			</li>
 		</ol>
+		<div class="well">
+			<p>
+				Use this form to adjust the system's parameters. If the system is set to override it will remain in the set state until the override
+				is turned off. Changes will immediately affect the system.
+			</p>
+		</div>
 	</div>
 </div>
 <!-- /.row -->
@@ -23,56 +29,56 @@
 		{{ form }}
 			<div class="form-group">
 				<label>System Override</label>
-				<select class="form-control">
-					<option>{% if user_preferences.system_override == True %} True {% else %} False {% endif %} </option>
-					<option>{% if user_preferences.system_override == True %} False {% else %} True {% endif %} </option>
+				<select name="override" id="override" class="form-control">
+					<option>{% if user_setting.system_override == "True" %} True {% else %} False {% endif %} </option>
+					<option>{% if user_setting.system_override == "True" %} False {% else %} True {% endif %} </option>
 				</select>
 			</div>
 			
 			<div class="form-group">
 				<label>Boiler Status</label>
 				<label class="radio-inline">
-					<input type="radio" name="status" id="status_on" value="on" {% if heating_system.status == True %} checked {% endif %}>On
+					<input type="radio" name="status" id="status" value="True" {% if heating_system.status == "True" %} checked {% endif %}>On
 				</label>
 				<label class="radio-inline">
-					<input type="radio" name="status" id="status_off" value="off" {% if heating_system.status == False %} checked {% endif %}>Off
+					<input type="radio" name="status" id="status" value="False" {% if heating_system.status == "False" %} checked {% endif %}>Off
 				</label>
 			</div>
 			
 			<div class="form-group">
 				<label>Windows</label>
 				<label class="radio-inline">
-					<input type="radio" name="optionsRadiosInline" id="optionsRadiosInline1" value="option1" {% if building.windows == True %}checked {% endif %}>Open
+					<input type="radio" name="windows" id="windows" value="True" {% if building.windows == "True" %}checked {% endif %}>Open
 				</label>
 				<label class="radio-inline">
-					<input type="radio" name="optionsRadiosInline" id="optionsRadiosInline2" value="option2" {% if building.windows == False %}checked {% endif %}>Closed
+					<input type="radio" name="windows" id="windows" value="False" {% if building.windows == "False" %}checked {% endif %}>Closed
 				</label>
 			</div>
 			
 			
 			<div class="form-group input-group">
 				<span class="input-group-addon">Fuel Remaining</span>
-				<input type="text" class="form-control" value="{{heating_system.fuel_remaining}}">
+				<input name="fuel_remaining" id="fuel_remaining" type="text" class="form-control" value="{{heating_system.fuel_remaining}}">
 				<span class="input-group-addon"> &#8467;</span>
 			</div>
 			
 			<div class="form-group input-group">
 				<span class="input-group-addon">Fuel Burn Rate</span>
-				<input type="text" class="form-control" value="{{heating_system.burn_rate}}">
+				<input name="burn_rate" id="burn_rate" type="text" class="form-control" value="{{heating_system.burn_rate}}">
 				<span class="input-group-addon"> &#8467;/hr</span>
 			</div>
 			
 			<div class="form-group input-group">
 				<span class="input-group-addon">Ideal Temp</span>
-				<input type="text" class="form-control" value="{{user_preference.ideal_temp}}">
+				<input name="ideal_temp" id="ideal_temp" type="text" class="form-control" value="{{user_setting.ideal_temp}}">
 				<span class="input-group-addon"> &#8451;</span>
 			</div>
 	
 			<div class="form-group">
 				<label>System Setting</label>
-				<select class="form-control">
-					<option>{% if user_preference.setting == "COMFORT" %} Comfort {% else %} Economic {% endif %} </option>
-					<option>{% if user_preference.setting == "COMFORT" %} Economic {% else %} Comfort {% endif %} </option>
+				<select name="setting" id="setting" class="form-control">
+					<option>{% if user_setting.setting == "COMFORT" %} COMFORT {% else %} ECONOMIC {% endif %} </option>
+					<option>{% if user_setting.setting == "COMFORT" %} ECONOMIC {% else %} COMFORT {% endif %} </option>
 				</select>
 			</div>
 			
