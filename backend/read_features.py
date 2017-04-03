@@ -55,10 +55,10 @@ def read_temp():
 	    db.commit()
 	    db.close()
 	except MySQLdb.Error, e:
-        try:
-            print "MySQL Error [%d]: %s" % (e.args[0], e.args[1])
-        except IndexError:
-            print "MySQL Error: %s" % str(e)
+		try:
+			print "MySQL Error [%d]: %s" % (e.args[0], e.args[1])
+		except IndexError:
+			print "MySQL Error: %s" % str(e)
 
 #Fetches the latest weather forecast for the day
 def read_weather():
@@ -76,17 +76,17 @@ def read_weather():
 	low = parsed_forecast['forecast']['simpleforecast']['forecastday'][0]['low']['celsius']
 	snow = parsed_forecast['forecast']['simpleforecast']['forecastday'][0]['snow_allday']['in']
 	
-    try:
-	    db = MySQLdb.connect(HOST, USER, PASSWD, DB)         
-	    cur = db.cursor()
-	    cur.execute("INSERT INTO interface_weather (time, conditions, humidity, wind_kph, chance_rain, high, low, snow) VALUES (%s, %s, %s, %s, %s, %s, %s, %s);", (time_now, conditions, humidity, wind_kph, chance_rain, high, low, snow))
-	    db.commit()
-	    db.close()
-    except MySQLdb.Error, e:
-        try:
-            print "MySQL Error [%d]: %s" % (e.args[0], e.args[1])
-        except IndexError:
-            print "MySQL Error: %s" % str(e)
+	try:
+		db = MySQLdb.connect(HOST, USER, PASSWD, DB)         
+		cur = db.cursor()
+		cur.execute("INSERT INTO interface_weather (time, conditions, humidity, wind_kph, chance_rain, high, low, snow) VALUES (%s, %s, %s, %s, %s, %s, %s, %s);", (time_now, conditions, humidity, wind_kph, chance_rain, high, low, snow))
+		db.commit()
+		db.close()
+	except MySQLdb.Error, e:
+		try:
+			print "MySQL Error [%d]: %s" % (e.args[0], e.args[1])
+		except IndexError:
+			print "MySQL Error: %s" % str(e)
 
 #execute the program
 schedule.every(15).minutes.do(read_temp)

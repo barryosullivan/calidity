@@ -52,15 +52,17 @@ def settings( request ):
         ideal_temp = request.POST['ideal_temp']
         setting = request.POST['setting']
 		
+        if override == True:
+             building.windows = windows
+             building.save()
+             heating_system.status = status
+             heating_system.save()
+
         user_setting.setting = setting
         user_setting.ideal_temp = ideal_temp
         user_setting.system_override = override
         user_setting.save()
 
-        building.windows = windows
-        building.save()
-
-        heating_system.status = status
         heating_system.fuel_remaining = fuel_remaining
         heating_system.burn_rate = burn_rate
         heating_system.save()
